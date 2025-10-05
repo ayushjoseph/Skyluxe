@@ -5,26 +5,31 @@ Analyze historical weather probabilities and daily climate metrics for any locat
 ## Features
 
 - **Animated splash**: Canvas starfield + logo reveal with Smooch Sans wordmark.
-- **Location search (validated)**: Clean input validation and error messages.
 - **Climate metrics**: Mean/Min/Max temperature, precipitation, humidity, wind, pressure.
 - **Probability cards**: Extreme heat/cold, heavy rain, high wind, uncomfortable humidity.
 - **Charts**: Compact temperature range visualization per day.
 - **Export**: JSON and CSV export with CSV injection mitigation.
 - **Zero Trust on external data**: Sanitization and numeric coercion for geocoding and NASA data.
-## Tech Stack
+ ## Tech Stack
 
-- **Frontend**: React 18, TypeScript 5, Vite 5, Tailwind CSS 3, lucide-react
-- **APIs**: NASA POWER (daily point), OpenStreetMap Nominatim (geocoding)
+ - **Frontend**: React 18, TypeScript 5, Vite 5, Tailwind CSS 3, lucide-react
+ - **APIs**: NASA POWER (daily point), OpenStreetMap Nominatim (geocoding)
 
-LocationSearch.tsx
-ExportPanel.tsx
-services/
+ ## Screenshots
+
+![Splash](docs/screenshots/splash.png)
+![Main UI](docs/screenshots/main-ui.png)
+![User Interaction 1](docs/screenshots/interaction-1.png)
+![User Interaction 2](docs/screenshots/interaction-2.png)
+
+ LocationSearch.tsx
+  ExportPanel.tsx
+  services/
 geocoding.ts              # Nominatim
 nasaPowerApi.ts           # NASA POWER daily point
 {{ ... }}
 sanitize.ts               # safeText, toFiniteNumber, CSV mitigations
 validation.ts             # input validation
-App.tsx
 main.tsx
 index.css
 index.html
