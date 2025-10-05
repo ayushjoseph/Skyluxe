@@ -70,12 +70,7 @@ Note: This is a single-page app without client-side routing, so no redirect rule
 - Geocoding/NASA values are clamped to safe ranges.
 
 
-## Screenshots
 
-![Splash](docs/screenshots/Splash%20Screen%20-image%201.png)
-![Main UI](docs/screenshots/Main%20UI%20%20-%20image%202.png)
-![User Interaction 1](docs/screenshots/User%20interaction%20-%20image%203.png)
-![User Interaction 2](docs/screenshots/User%20interaction%20-%20image%204.png)
 
 
 ## Data Sources & Credits
