@@ -1,4 +1,5 @@
 import { LocationData } from '../types/climate';
+import { safeText, toFiniteNumber } from '../utils/sanitize';
 
 export class GeocodingService {
   async geocodeLocation(locationName: string): Promise<LocationData> {
@@ -13,17 +14,22 @@ export class GeocodingService {
 
       const data = await response.json();
 
-      if (data.length === 0) {
+      if (!Array.isArray(data) || data.length === 0) {
         throw new Error('Location not found');
       }
 
       const result = data[0];
+      const rawName: string = (result.display_name || '').split(',')[0] || '';
+      const rawCountry: string = ((result.display_name || '').split(',').slice(-1)[0] || '').trim();
+
+      const latitude = toFiniteNumber(result.lat, 0, { min: -90, max: 90 });
+      const longitude = toFiniteNumber(result.lon, 0, { min: -180, max: 180 });
 
       return {
-        name: result.display_name.split(',')[0],
-        latitude: parseFloat(result.lat),
-        longitude: parseFloat(result.lon),
-        country: result.display_name.split(',').slice(-1)[0].trim(),
+        name: safeText(rawName, 80) || 'Unknown',
+        latitude,
+        longitude,
+        country: safeText(rawCountry, 56) || undefined,
       };
     } catch (error) {
       console.error('Geocoding error:', error);
@@ -42,12 +48,17 @@ export class GeocodingService {
       }
 
       const data = await response.json();
+      const address = data?.address || {};
+      const nameCandidate = address.city || address.town || address.village || address.hamlet || 'Unknown';
+
+      const lat = toFiniteNumber(latitude, 0, { min: -90, max: 90 });
+      const lon = toFiniteNumber(longitude, 0, { min: -180, max: 180 });
 
       return {
-        name: data.address.city || data.address.town || data.address.village || 'Unknown',
-        latitude,
-        longitude,
-        country: data.address.country,
+        name: safeText(nameCandidate, 80) || 'Unknown',
+        latitude: lat,
+        longitude: lon,
+        country: safeText(address.country, 56) || undefined,
       };
     } catch (error) {
       console.error('Reverse geocoding error:', error);

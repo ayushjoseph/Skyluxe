@@ -8,6 +8,8 @@ import { ClimateChart } from './components/ClimateChart';
 import { LocationSearch } from './components/LocationSearch';
 import { ProbabilityCard } from './components/ProbabilityCard';
 import { ExportPanel } from './components/ExportPanel';
+import { validateLocationName } from './utils/validation';
+import { SplashScreen } from './components/SplashScreen';
 
 function App() {
   const [climateData, setClimateData] = useState<ClimateAnalysisResponse | null>(null);
@@ -20,7 +22,13 @@ function App() {
     setError(null);
 
     try {
-      const locationData = await geocodingService.geocodeLocation(location);
+      // Zero Trust: validate again at the boundary before using the value
+      const v = validateLocationName(location);
+      if (!v.ok) {
+        throw new Error(v.error || 'Invalid location');
+      }
+
+      const locationData = await geocodingService.geocodeLocation(v.value!);
 
       const currentDate = new Date();
       const endDate = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
@@ -59,15 +67,13 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-sky-50 via-blue-50 to-slate-100">
+      <SplashScreen />
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         <header className="mb-8">
           <div className="flex items-center gap-3 mb-2">
             <Satellite className="w-10 h-10 text-blue-600" />
-            <h1 className="text-4xl font-bold text-gray-900">NASA Climate Analyzer</h1>
+            <h1 className="text-4xl font-bold text-gray-900">Skyluxe Climate Analyzer</h1>
           </div>
-          <p className="text-gray-600 text-lg mb-4">
-            Historical weather probability analysis powered by NASA POWER data
-          </p>
           <div className="flex items-center gap-2 text-sm text-gray-600 bg-white rounded-lg px-4 py-2 inline-flex">
             <Activity className="w-4 h-4 text-blue-600" />
             <span>Using NASA POWER API - 40+ years of global satellite data</span>
