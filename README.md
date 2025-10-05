@@ -16,24 +16,12 @@ Analyze historical weather probabilities and daily climate metrics for any locat
 - **Frontend**: React 18, TypeScript 5, Vite 5, Tailwind CSS 3, lucide-react
 - **APIs**: NASA POWER (daily point), OpenStreetMap Nominatim (geocoding)
 
-## Project Structure
-```
-Skyluxe/
-public/
-The climate analyser.png     # splash overlay asset
-src/
-components/
-SplashScreen.tsx          # animated splash (canvas + overlay)
-LogoReveal.tsx            # logo mark + staggered wordmark
-MetricCard.tsx
-ProbabilityCard.tsx
-ClimateChart.tsx
 LocationSearch.tsx
 ExportPanel.tsx
 services/
 geocoding.ts              # Nominatim
 nasaPowerApi.ts           # NASA POWER daily point
-utils/
+{{ ... }}
 sanitize.ts               # safeText, toFiniteNumber, CSV mitigations
 validation.ts             # input validation
 App.tsx
