@@ -22,7 +22,9 @@ Analyze historical weather probabilities and daily climate metrics for any locat
 ![User Interaction 1](docs/screenshots/interaction-1.png)
 ![User Interaction 2](docs/screenshots/interaction-2.png)
 
- ## Demo
+ ## Demo video
+ 
+ https://drive.google.com/file/d/12IYXI1gFz2DPhScae_shT6VJhiMxucbF/view?usp=drive_link
 
  
  LocationSearch.tsx
